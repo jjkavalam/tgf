@@ -9,7 +9,7 @@ const parse = require("@jjkavalam/tgf");
 
 const fs = require("fs");
 
-const tgf = fs.readFileSync("g1.tgf", { encoding: "utf-8" });
+const tgf = fs.readFileSync("g1.tgf", {encoding: "utf-8"});
 ```
 
 Parsed result has the following features:
@@ -41,10 +41,21 @@ A sample result:
 }
 ```
 
-
 ```
 getWeight('1', '2')
 => 2
+```
+
+### Undirected graphs
+
+The parser treats all edges in the TGF file as directed. Hence, to represent undirected graphs, two edges need to be
+specified for each undirected edge.
+
+But it is unlikely that your graph editor writes two edges for each undirected edge. Setting, `undirected` option will
+cause the parser to compensate for this.
+
+```js
+parse(contents, {undirected: true})
 ```
 
 ## Related tools
