@@ -1,3 +1,7 @@
+function edgeKey(from, to) {
+    return `${from}:${to}`
+}
+
 function parse(contents) {
     const [sectionNode, sectionEdges] = contents.split("#");
     const nodeMap = {};
@@ -12,14 +16,19 @@ function parse(contents) {
         adjList[label] = [];
     });
 
+    const weightMap = {};
     sectionEdges.split("\n").forEach((edgeLine) => {
         if (!edgeLine) return;
-        const [from, to] = edgeLine.split(" ");
+        const [from, to, weight] = edgeLine.split(" ");
         adjList[nodeMap[from]].push(nodeMap[to]);
+        weightMap[edgeKey(nodeMap[from], nodeMap[to])] = weight && Number(weight);
     });
     return {
         nodes: Object.values(nodeMap),
         adjList,
+        getWeight(from, to) {
+            return weightMap[edgeKey(from, to)]
+        }
     };
 }
 

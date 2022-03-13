@@ -10,10 +10,15 @@ const parse = require("@jjkavalam/tgf");
 const fs = require("fs");
 
 const tgf = fs.readFileSync("g1.tgf", { encoding: "utf-8" });
-console.log(parse(tgf))
 ```
 
-Gives the following output (sample):
+Parsed result has the following features:
+
+- `nodes: string[]`, array of nodes identified by label
+- `adjList: {[string]: string[]}`, adjacency list representation of the graph
+- `getWeight: function(string, string): number`, a function that returns the weight of each edge (or `undefined`)
+
+A sample result:
 
 ```
 {
@@ -34,6 +39,12 @@ Gives the following output (sample):
     '9': []
   }
 }
+```
+
+
+```
+getWeight('1', '2')
+=> 2
 ```
 
 ## Related tools
